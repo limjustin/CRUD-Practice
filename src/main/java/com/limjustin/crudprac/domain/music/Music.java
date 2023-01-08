@@ -1,5 +1,4 @@
-package com.limjustin.crudprac.repository.domain;
-
+package com.limjustin.crudprac.domain.music;
 
 import javax.persistence.*;
 
