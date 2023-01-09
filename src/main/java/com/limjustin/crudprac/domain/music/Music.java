@@ -19,6 +19,8 @@ public class Music {
     private String lyrics;
 
     // Constructor
+    public Music() {}  // 기본 생성자 추가, Because of 'No default constructor for entity'
+
     public Music(String title, String artist, String album, String lyrics) {
         this.title = title;
         this.artist = artist;
