@@ -16,6 +16,7 @@ public class MusicService {
         this.musicRepository = musicRepository;
     }
 
+    @Transactional
     public Long save(MusicSaveRequestDto requestDto) {
         System.out.println("MusicService.save");
         return musicRepository.save(requestDto.toEntity()).getId();
