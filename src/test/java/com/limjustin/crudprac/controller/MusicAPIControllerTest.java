@@ -1,5 +1,6 @@
 package com.limjustin.crudprac.controller;
 
+import com.limjustin.crudprac.controller.dto.MusicResponseDto;
 import com.limjustin.crudprac.controller.dto.MusicSaveRequestDto;
 import com.limjustin.crudprac.domain.music.Music;
 import com.limjustin.crudprac.domain.music.MusicRepository;
@@ -37,7 +38,7 @@ class MusicAPIControllerTest {
         System.out.println("MusicAPIControllerTest.given");
         MusicSaveRequestDto requestDto
                 = new MusicSaveRequestDto("Sneakers", "ITZY", "CHECKMATE", "Put my sneakers on!");
-        String url = "http://localhost:" + port +"/api/v1/music";  // 랜덤포트 사용하는 이유가 뭐임? -> 알아버렸다 TestRestTemplate이 돌아가지 않기 때문
+        String url = "http://localhost:" + port + "/api/v1/music";  // 랜덤포트 사용하는 이유가 뭐임? -> 알아버렸다 TestRestTemplate이 돌아가지 않기 때문
         // "실제 위 url 같은 요청이 왔을 때!" 라는 것을 지금 테스트하기 위함이잖아!
         // 똑같은 상황을 테스트코드에서 만든거지!
         // 그러면 컨트롤러에서도 그거에 대해 매칭이 되겠지!
@@ -73,5 +74,30 @@ class MusicAPIControllerTest {
         * 4. TestRestTemplate 객체를 활용해서 ResponseEntity 객체를 얻을 수 있고, 이를 통해 HTTP 통신에 관한 정보를 얻을 수 있음!
         *    (Status Code, Body value(이게 뭔지 모르겠다고)) -> 쨌든 HTTP 통신 정보를 한번 씌워서 제공해줌 (ResponseEntity)
         * */
+    }
+
+    @Test
+    void 조회() {
+        // given
+        Music music = new Music("Loco", "ITZY", "CRAZY IN LOVE", "I'm gettin loco");
+        musicRepository.save(music);  // 저장을 하는데 그것도 테스트 코드에서? DTO 쓸 필요없지 조금만 생각해보면?!!
+
+        String url = "http://localhost:" + port + "/api/v1/music/" + music.getId();
+        System.out.println(url);
+
+        // when
+        ResponseEntity<Music> responseEntity = restTemplate.getForEntity(url, Music.class);
+        MusicResponseDto responseDto = new MusicResponseDto(responseEntity.getBody());  // Entity mapping into DTO
+
+        // then
+        System.out.println("responseEntity = " + responseEntity);
+        System.out.println("responseDto.getTitle() = " + responseDto.getTitle());
+        assertThat(responseDto.getTitle()).isEqualTo(music.getTitle());
+    }
+
+    @Test
+    void 수정() {
+
+
     }
 }
