@@ -1,0 +1,39 @@
+{{>layout/header}}
+
+<h1 align="center">Music Upload Website</h1>
+
+<div class="col-md-12">
+
+    <div class="row">
+        <div class="col-md-6">
+            <a href="/music/save" role="button" class="btn btn-primary">글 등록</a>
+        </div>
+    </div>
+
+    <!-- 목록 출력 영역 -->
+    <table class="table table-horizontal table-bordered">
+        <thead class="thead-strong">
+        <tr>
+            <th>INDEX</th>
+            <th>TITLE</th>
+            <th>ARTIST</th>
+            <th>ALBUM</th>
+            <th>LYRICS</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+        {{#musics}}
+        <tr>
+            <td>{{id}}</td>
+            <td><a href="/music/update/{{id}}">{{title}}</a></td>
+            <td>{{artist}}</td>
+            <td>{{album}}</td>
+            <td>{{lyrics}}</td>
+        </tr>
+        {{/musics}}
+        </tbody>
+    </table>
+
+</div>
+
+{{>layout/footer}}

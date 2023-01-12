@@ -1,5 +1,6 @@
 package com.limjustin.crudprac.service;
 
+import com.limjustin.crudprac.controller.dto.MusicListResponseDto;
 import com.limjustin.crudprac.controller.dto.MusicResponseDto;
 import com.limjustin.crudprac.controller.dto.MusicSaveRequestDto;
 import com.limjustin.crudprac.controller.dto.MusicUpdateRequestDto;
@@ -9,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MusicService {
@@ -58,5 +61,12 @@ public class MusicService {
         }
 
         return id;
+    }
+
+    @Transactional
+    public List<MusicListResponseDto> findAllDesc() {
+        return musicRepository.findAllDesc().stream()
+                .map(MusicListResponseDto::new)
+                .collect(Collectors.toList());
     }
 }
