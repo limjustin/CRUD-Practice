@@ -131,6 +131,7 @@ class MusicAPIControllerTest {
         System.out.println("responseEntity.getBody() = " + responseEntity.getBody());
         List<Music> musicList = musicRepository.findAll();
         System.out.println(musicList.get(0).getTitle());
+        assertThat(musicList.get(0).getTitle()).isEqualTo(requestDto.getTitle());
         assertThat(responseEntity.getStatusCode()).isEqualTo(OK);
 
         // restTemplate.postForEntity(url, requestDto, Music.class) 이 코드가 왜 틀렸는지 405 Error 발생한 이유 정리하기
