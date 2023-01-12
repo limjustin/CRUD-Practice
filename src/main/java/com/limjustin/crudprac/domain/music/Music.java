@@ -30,22 +30,35 @@ public class Music {
 
     // Getter
     public Long getId() {
+        System.out.println("Music.getId");
         return id;
     }
 
     public String getTitle() {
+        System.out.println("Music.getTitle");
         return title;
     }
 
     public String getArtist() {
+        System.out.println("Music.getArtist");
         return artist;
     }
 
     public String getAlbum() {
+        System.out.println("Music.getAlbum");
         return album;
     }
 
     public String getLyrics() {
+        System.out.println("Music.getLyrics");
         return lyrics;
+    }
+
+    // update?
+    public void update(String title, String artist, String album, String lyrics) {
+        this.title = title;
+        this.artist = artist;
+        this.album = album;
+        this.lyrics = lyrics;
     }
 }

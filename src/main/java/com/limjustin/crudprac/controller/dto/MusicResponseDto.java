@@ -17,30 +17,37 @@ public class MusicResponseDto {
 
     // Constructor
     public MusicResponseDto(Music entity) {
+        System.out.println("MusicResponseDto.MusicResponseDto Constructor Call");
         this.id = entity.getId();
         this.title = entity.getTitle();
         this.artist = entity.getArtist();
         this.album = entity.getAlbum();
         this.lyrics = entity.getLyrics();
+        System.out.println("MusicResponseDto.MusicResponseDto Constructor End");
     }
 
     public Long getId() {
+        System.out.println("MusicResponseDto.getId");
         return id;
     }
 
     public String getTitle() {
+        System.out.println("MusicResponseDto.getTitle");
         return title;
     }
 
     public String getArtist() {
+        System.out.println("MusicResponseDto.getArtist");
         return artist;
     }
 
     public String getAlbum() {
+        System.out.println("MusicResponseDto.getAlbum");
         return album;
     }
 
     public String getLyrics() {
+        System.out.println("MusicResponseDto.getLyrics");
         return lyrics;
     }
 }

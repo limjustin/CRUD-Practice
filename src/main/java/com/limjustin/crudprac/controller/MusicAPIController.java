@@ -25,11 +25,14 @@ public class MusicAPIController {
 
     @GetMapping("/api/v1/music/{id}")  // 조회 (GET-READ)
     public MusicResponseDto findById(@PathVariable Long id) {
-        return musicService.findById(id);
+        System.out.println("MusicAPIController.findById");
+        MusicResponseDto responseDto = musicService.findById(id);
+        System.out.println("Come back to Controller");
+        return responseDto;  // 아마 여기서 return 하는데 Getter 사용해서 보여줘야하니까
     }  // Why return DTO type? : 그 DTO 객체를 보여줘야하니까? 조회니까?
 
     @PutMapping("/api/v1/music/{id}")  // 수정 (PUT-UPDATE)
-    public Long update(@PathVariable Long id, @RequestBody MusicUpdateRequestDto requestDto) {
+    public Long update(@PathVariable Long id, @RequestBody MusicUpdateRequestDto requestDto) {  // 수정 내용은 requestDto 변수에 넣었음
         return musicService.update(id, requestDto);
     }  // Why return Long type?
 
