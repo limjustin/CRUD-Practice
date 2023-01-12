@@ -63,6 +63,18 @@ public class MusicService {
         return id;
     }
 
+    public Long delete(Long id) {
+        Optional<Music> result = musicRepository.findById(id);
+
+        if (result.isPresent()) {
+            Music music = result.get();
+            musicRepository.delete(music);
+        } else {
+            System.out.println("적절한 예외 처리 필요!");
+        }
+        return id;
+    }
+
     @Transactional
     public List<MusicListResponseDto> findAllDesc() {
         return musicRepository.findAllDesc().stream()

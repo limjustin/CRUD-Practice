@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +26,8 @@ import static org.springframework.http.HttpStatus.OK;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class MusicAPIControllerTest {
 
-    @LocalServerPort private int port;
+    @LocalServerPort
+    private int port;
     @Autowired private MusicRepository musicRepository;
     @Autowired private TestRestTemplate restTemplate;  // 컨트롤러 테스트에서는 REST 관련 테스트가 진행되어야하기 때문
 
@@ -137,5 +138,19 @@ class MusicAPIControllerTest {
         // restTemplate.postForEntity(url, requestDto, Music.class) 이 코드가 왜 틀렸는지 405 Error 발생한 이유 정리하기
         // 405 에러 발생 이유 : GET, POST 겹쳐서?
         // 이 코드 역시 리턴 타입 체크하기
+    }
+
+    @Test
+    void 삭제() {
+        // given
+        Music music = new Music("I'm not the only one", "Sam Smith", "In the Lonely Hour", "You and me we made a vow");
+        musicRepository.save(music);
+
+        String url = "http://localhost:" + port + "/api/v1/music/" + music.getId();
+
+        // when
+        restTemplate.delete(url, music);
+
+        // then
     }
 }

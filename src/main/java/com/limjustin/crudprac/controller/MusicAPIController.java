@@ -37,4 +37,8 @@ public class MusicAPIController {
         return musicService.update(id, requestDto);
     }  // Why return Long type?
 
+    @DeleteMapping("/api/v1/music/{id}")  // 삭제 (DELETE-DELETE)
+    public Long delete(@PathVariable Long id) {
+        return musicService.delete(id);
+    }
 }
