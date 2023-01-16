@@ -1,5 +1,7 @@
 package com.limjustin.crudprac.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.limjustin.crudprac.controller.dto.MusicResponseDto;
 import com.limjustin.crudprac.controller.dto.MusicSaveRequestDto;
 import com.limjustin.crudprac.controller.dto.MusicUpdateRequestDto;
@@ -8,6 +10,7 @@ import com.limjustin.crudprac.domain.music.MusicRepository;
 import com.limjustin.crudprac.service.MusicService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,13 +18,18 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class MusicAPIControllerTest {
@@ -31,14 +39,14 @@ class MusicAPIControllerTest {
     @Autowired private MusicRepository musicRepository;
     @Autowired private TestRestTemplate restTemplate;  // 컨트롤러 테스트에서는 REST 관련 테스트가 진행되어야하기 때문
 
-
     @AfterEach
     void AfterEach() {
         musicRepository.deleteAll();  // 이거 때문에 repository 선언해야하나?
     }
 
     @Test
-    void 등록() {
+    @WithMockUser(roles = "USER")
+    void 등록() throws JsonProcessingException {
         // given (여기서는 Entity 사용 X, DTO 사용)
         System.out.println("MusicAPIControllerTest.given");
         MusicSaveRequestDto requestDto
@@ -65,7 +73,7 @@ class MusicAPIControllerTest {
         System.out.println("responseEntity.getBody() = " + responseEntity.getBody());
 
         List<Music> musicList = musicRepository.findAll();
-        System.out.println("musicList.get(0).getTitle() = " + musicList.get(0).getTitle());
+        // System.out.println("musicList.get(0).getTitle() = " + musicList.get(0).getTitle());
         assertThat(responseEntity.getStatusCode()).isEqualTo(OK);
         assertThat(musicList.get(0).getTitle()).isEqualTo(requestDto.getTitle());
         // 결국 검증 관련 부분은 큰 의미가 없네. 컨트롤러 테스트에서! (repo 테스트랑 다른게 머임)
@@ -107,6 +115,7 @@ class MusicAPIControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     void 수정() {
         // 기존에 있던 글을 id를 기반으로 찾음
         // UpdateDto에 수정된 내용을 담고
