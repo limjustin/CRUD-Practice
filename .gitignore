@@ -1,5 +1,7 @@
 .gradle
 .idea
+build
+out
 
 /.gradle/buildOutputCleanup/buildOutputCleanup.lock
 /.gradle/buildOutputCleanup/cache.properties
