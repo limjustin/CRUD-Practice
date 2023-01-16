@@ -33,3 +33,4 @@
 /.idea/sonarlint/issuestore/6/8/6851d58d6d4928ae748c9b8436692a49e2489111
 /.idea/sonarlint/issuestore/b/3/b328f357ace733e055243caece463497459b9593
 /.idea/sonarlint/issuestore/d/f/dff8292f03a136285f20add29c578b0f6fd991c6
+/src/main/resources/application-oauth.properties
