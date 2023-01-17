@@ -9,10 +9,13 @@ public class Music {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false)
     private String artist;
 
+    @Column(nullable = false)
     private String album;
 
     @Column(length = 5000)  // 일단 5000자 제한으로 넣어보기!
