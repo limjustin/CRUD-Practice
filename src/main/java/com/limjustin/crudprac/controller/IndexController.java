@@ -1,7 +1,5 @@
 package com.limjustin.crudprac.controller;
 
-import com.limjustin.crudprac.config.auth.LoginUser;
-import com.limjustin.crudprac.config.auth.dto.SessionUser;
 import com.limjustin.crudprac.controller.dto.MusicResponseDto;
 import com.limjustin.crudprac.service.MusicService;
 import lombok.RequiredArgsConstructor;
@@ -22,13 +20,8 @@ public class IndexController {
     private final HttpSession httpSession;
 
     @GetMapping("/")
-    public String index(Model model, @LoginUser SessionUser user) {
+    public String index(Model model) {
         model.addAttribute("musics", musicService.findAllDesc());
-
-        if(user != null) {
-            model.addAttribute("userName", user.getName());
-        }
-
         return "index";
     }
 
