@@ -7,7 +7,7 @@ name: CRUD-Practice TEST
 env:
   S3_BUCKET_NAME: jaeyoung-music-deploy
   CODE_DEPLOY_APPLICATION_NAME: testapp-music
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: dev
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: dev-lim
 
 jobs:
   build:
