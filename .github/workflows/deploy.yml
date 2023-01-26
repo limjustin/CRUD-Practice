@@ -6,6 +6,7 @@ on:
 name: CRUD-Practice TEST
 env:
   S3_BUCKET_NAME: jaeyoung-music-deploy
+  RESOURCE_PATH: './src/main/resources/application.yaml'
   CODE_DEPLOY_APPLICATION_NAME: testapp-music
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: dev-lim
 
@@ -21,15 +22,10 @@ jobs:
         with:
           java-version: 11
 
-      - name: Set Yaml file
-        uses: microsoft/variable-substitution@v1
-        with:
-          files: './src/main/resources/application.yaml'
-        env:
-          spring.datasource.driver-class-name: ${{ secrets.RDS_DRIVER_CLASS_NAME }}
-          spring.datasource.url: ${{ secrets.RDS_URL }}
-          spring.datasource.username: ${{ secrets.RDS_USERNAME }}
-          spring.datasource.password: ${{ secrets.RDS_PASSWORD }}
+      - name: Set application properties
+        uses: actions/checkout@v3
+      - run: touch ./src/main/resources/application.properties
+      - run: echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application.properties
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
