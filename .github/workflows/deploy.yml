@@ -6,7 +6,6 @@ on:
 name: CRUD-Practice TEST
 env:
   S3_BUCKET_NAME: jaeyoung-music-deploy
-  RESOURCE_PATH: './src/main/resources/application.yaml'
   CODE_DEPLOY_APPLICATION_NAME: testapp-music
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: dev-lim
 
